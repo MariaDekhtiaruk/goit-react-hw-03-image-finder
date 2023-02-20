@@ -2,6 +2,7 @@ import { Component } from 'react';
 import SearchBar from './SearchBar';
 import { getImages } from 'services/apiService';
 import { ImageGallery } from './ImageGallery';
+import { Notify } from 'notiflix';
 import Button from './Button';
 import '../index.css';
 import '../styles.css';
@@ -21,7 +22,7 @@ export class App extends Component {
     const images = await getImages(imageQ);
 
     if (images.hits.length === 0) {
-      alert(
+      Notify.warning(
         'Unfortunately we don`t find your search query, please try something else'
       );
       return;
