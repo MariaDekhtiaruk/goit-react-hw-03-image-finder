@@ -1,5 +1,7 @@
 //import PropTypes from 'prop-types';
 import { Component } from 'react';
+// import { toast } from 'react-toastify';
+// import {Farbeer} from
 
 class SearchBar extends Component {
   state = {
@@ -11,21 +13,28 @@ class SearchBar extends Component {
   };
   hendlerSubmit = event => {
     event.preventDefault();
-
+    if (this.state.imageQ.trim() === '') {
+      alert('Please enter your search query');
+      return;
+    }
     this.props.onSubmit(this.state.imageQ);
     this.setState({ imageQ: '' });
   };
   render() {
     return (
       <header className="Searchbar">
-        <form name="searchForm" onSubmit={this.hendlerSubmit} className="form">
-          <button type="submit" className="button">
-            <span className="button-label">Search</span>
+        <form
+          name="searchForm"
+          onSubmit={this.hendlerSubmit}
+          className="SearchForm"
+        >
+          <button type="submit" className="SearchForm-button">
+            <span className="SearchForm-button-label">Search</span>
           </button>
 
           <input
             onChange={this.onSearchBar}
-            className="input"
+            className="SearchForm-input"
             type="text"
             autoComplete="off"
             autoFocus

@@ -19,6 +19,13 @@ export class App extends Component {
   handleFormSubmit = async imageQ => {
     this.setState({ isLoading: true });
     const images = await getImages(imageQ);
+
+    if (images.hits.length === 0) {
+      alert(
+        'Unfortunately we don`t find your search query, please try something else'
+      );
+      return;
+    }
     this.setState({ images: images.hits, imageQ, isLoading: false });
     this.scrollToBottom();
   };
