@@ -16,6 +16,7 @@ export class App extends Component {
     imageQ: '',
     isLoading: false,
     selectedImage: null,
+    totalHits: 0,
   };
   handleFormSubmit = async imageQ => {
     this.setState({ isLoading: true });
@@ -27,7 +28,13 @@ export class App extends Component {
       );
       return;
     }
-    this.setState({ images: images.hits, imageQ, isLoading: false });
+    this.setState({
+      images: images.hits,
+      imageQ,
+      isLoading: false,
+      page: 1,
+      totalHits: images.totalHits,
+    });
     this.scrollToBottom();
   };
 
@@ -76,7 +83,8 @@ export class App extends Component {
   }
 
   render() {
-    const { images, isLoading, selectedImage } = this.state;
+    const { images, isLoading, selectedImage, totalHits } = this.state;
+    const isLoadMoreVisible = images.length !== totalHits;
     return (
       <div className="App">
         <SearchBar onSubmit={this.handleFormSubmit}></SearchBar>
@@ -88,7 +96,11 @@ export class App extends Component {
           isLoading ? (
             <Loader />
           ) : (
-            <Button title="Load More" onClickHandler={this.loadMoreHandler} />
+            <Button
+              title="Load More"
+              onClickHandler={this.loadMoreHandler}
+              isLoadMoreVisible={isLoadMoreVisible}
+            />
           )
         ) : null}
         <Modal selectedImage={selectedImage} onClose={this.onCloseModal} />

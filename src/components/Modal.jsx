@@ -4,7 +4,7 @@ const Modal = ({ selectedImage, onClose }) => {
   const { largeImageURL, tags } = selectedImage;
 
   return (
-    <div className="Overlay" onClick={onClose}>
+    <div className="Overlay" onClick={onClose} >
       <div className="Modal">
         <img src={largeImageURL} alt={tags} />
       </div>
